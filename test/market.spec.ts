@@ -36,6 +36,17 @@ describe('Market', () => {
       await p.spec().get(`${baseUrl}/8/produtos`).expectStatus(StatusCodes.OK);
     });
 
+    it('Create a new fruit of a specific market', async () => {
+      await p
+        .spec()
+        .post(`${baseUrl}/2/produtos/hortifruit/frutas`)
+        .withJson({
+          nome: faker.food.fruit(),
+          valor: faker.number.int()
+        })
+        .expectStatus(StatusCodes.CREATED);
+    });
+
     it('Get a fruit list of a specific market', async () => {
       await p
         .spec()
@@ -43,28 +54,21 @@ describe('Market', () => {
         .expectStatus(StatusCodes.OK);
     });
 
-    it('Create a new fruit of a specific market', async () => {
+    it('Create a new vegetable of a specific market', async () => {
       await p
         .spec()
-        .post(`${baseUrl}/2/produtos/hortifruit/frutas`)
+        .post(`${baseUrl}/2/produtos/hortifruit/legumes`)
         .withJson({
-          nome: faker.food.fruit(),
-          valor: faker.number.float()
+          nome: faker.food.vegetable(),
+          valor: faker.number.int()
         })
         .expectStatus(StatusCodes.CREATED);
     });
 
-    it('Get a candy list of a specific market', async () => {
+    it('Get a vegetable list of a specific market', async () => {
       await p
         .spec()
-        .get(`${baseUrl}/2/produtos/padaria/doces`)
-        .expectStatus(StatusCodes.OK);
-    });
-
-    it('Get a butchers pigs of a specific market', async () => {
-      await p
-        .spec()
-        .get(`${baseUrl}/2/produtos/acougue/suinos`)
+        .get(`${baseUrl}/2/produtos/hortifruit/legumes`)
         .expectStatus(StatusCodes.OK);
     });
 
@@ -74,15 +78,15 @@ describe('Market', () => {
         .post(`${baseUrl}/2/produtos/acougue/suinos`)
         .withJson({
           nome: faker.food.meat(),
-          valor: faker.number.float()
+          valor: faker.number.int()
         })
         .expectStatus(StatusCodes.CREATED);
     });
 
-    it('Get a butchers bovine of a specific market', async () => {
+    it('Get a butchers pigs of a specific market', async () => {
       await p
         .spec()
-        .get(`${baseUrl}/2/produtos/acougue/bovinos`)
+        .get(`${baseUrl}/2/produtos/acougue/suinos`)
         .expectStatus(StatusCodes.OK);
     });
 
@@ -92,9 +96,16 @@ describe('Market', () => {
         .post(`${baseUrl}/2/produtos/acougue/bovinos`)
         .withJson({
           nome: faker.food.meat(),
-          valor: faker.number.float()
+          valor: faker.number.int()
         })
         .expectStatus(StatusCodes.CREATED);
+    });
+
+    it('Get a butchers bovine of a specific market', async () => {
+      await p
+        .spec()
+        .get(`${baseUrl}/2/produtos/acougue/bovinos`)
+        .expectStatus(StatusCodes.OK);
     });
 
     it('Get a lunch list of a specific market', async () => {
